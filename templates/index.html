@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CI/CD Dashboard</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .status { font-size: 24px; }
+        .success { color: green; }
+        .failure { color: red; }
+    </style>
+</head>
+<body>
+    <h1>CI/CD Build Dashboard</h1>
+    <p class="status {{ 'success' if result.status == 'SUCCESS' else 'failure' }}">
+        Status: {{ result.status }}
+    </p>
+    <p>✅ Passed: {{ result.passed }}</p>
+    <p>❌ Failed: {{ result.failed }}</p>
+    <p>🕒 Timestamp: {{ result.timestamp }}</p>
+</body>
+</html>
