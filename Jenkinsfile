@@ -14,9 +14,10 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat "\"${BASH}\" -c 'chmod +x ci/run_tests.sh && ./ci/run_tests.sh'"
+                bat "\"${BASH}\" -c \"chmod +x ci/run_tests.sh && ./ci/run_tests.sh\""
             }
         }
+
 
         stage('Archive Results') {
             steps {
