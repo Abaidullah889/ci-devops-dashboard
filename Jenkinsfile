@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/YOUR_USERNAME/ci-devops-dashboard.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'pip install -r requirements.txt'
@@ -29,10 +23,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Build and test passed!'
+            echo '✅ Build and tests passed!'
         }
         failure {
-            echo '❌ Build or test failed!'
+            echo '❌ Build or tests failed!'
         }
     }
 }
