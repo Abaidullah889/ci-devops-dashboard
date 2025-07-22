@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  jenkins:
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
+    container_name: jenkins
+    ports:
+      - "9090:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - shared_data:/app/results
+    environment:
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+    networks:
+      - ci-network
+
+  flaskapp:
+    build:
+      context: ./flaskapp
+      dockerfile: Dockerfile
+    container_name: flaskapp
+    ports:
+      - "5000:5000"
+    volumes:
+      - shared_data:/app/results
+    networks:
+      - ci-network
+    depends_on:
+      - jenkins
+
+volumes:
+  jenkins_home:
+  shared_data:
+
+networks:
+  ci-network:
+    driver: bridge

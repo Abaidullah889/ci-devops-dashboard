@@ -39,7 +39,7 @@ echo "Status: $status"
 echo "Timestamp: $timestamp"
 
 # Save to JSON
-cat <<EOF > results.json
+cat <<EOF > /app/results/results.json
 {
   "status": "$status",
   "passed": $passed,

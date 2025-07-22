@@ -1,20 +1,16 @@
 pipeline {
     agent any
 
-    environment {
-        BASH = '"C:\\Program Files\\Git\\bin\\bash.exe"'
-    }
-
     stages {
         stage('Install Dependencies') {
             steps {
-                bat "${BASH} -c 'pip install -r requirements.txt'"
+                sh 'pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat "${BASH} -c 'chmod +x ci/run_tests.sh && ./ci/run_tests.sh'"
+                sh 'chmod +x ci/run_tests.sh && ./ci/run_tests.sh'
             }
         }
 

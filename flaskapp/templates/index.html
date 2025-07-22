@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CI/CD Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .dashboard {
+            background: #fff;
+            padding: 30px 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            text-align: center;
+            max-width: 500px;
+        }
+        .dashboard h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+        }
+        .status {
+            font-size: 26px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .success {
+            color: #28a745;
+        }
+        .failure {
+            color: #dc3545;
+        }
+        .info {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>🚀 CI Build Dashboard</h1>
+        <p id="status" class="status">Loading...</p>
+        <p class="info" id="passed">✅ Passed: --</p>
+        <p class="info" id="failed">❌ Failed: --</p>
+        <p class="info" id="timestamp">🕒 Timestamp: --</p>
+        <div class="footer">Updated every 10 seconds</div>
+    </div>
+
+    <script>
+        async function fetchResults() {
+            try {
+                const response = await fetch('/results.json');
+                const data = await response.json();
+
+                const statusElem = document.getElementById('status');
+                const passedElem = document.getElementById('passed');
+                const failedElem = document.getElementById('failed');
+                const timestampElem = document.getElementById('timestamp');
+
+                statusElem.textContent = `Status: ${data.status}`;
+                statusElem.className = 'status ' + (data.status === 'SUCCESS' ? 'success' : 'failure');
+                passedElem.textContent = `✅ Passed: ${data.passed}`;
+                failedElem.textContent = `❌ Failed: ${data.failed}`;
+                timestampElem.textContent = `🕒 Timestamp: ${data.timestamp}`;
+            } catch (err) {
+                document.getElementById('status').textContent = 'Error loading results.';
+                console.error(err);
+            }
+        }
+
+        fetchResults();              // initial load
+        setInterval(fetchResults, 10000); // auto refresh every 10s
+    </script>
+</body>
+</html>
