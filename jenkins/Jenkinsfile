@@ -31,6 +31,14 @@ pipeline {
             }
         }
 
+                stage('Debug File Write') {
+            steps {
+                sh '''
+                    echo "==> Listing all results paths"
+                    find / -name results.json 2>/dev/null || echo "No results.json found"
+                '''
+            }
+
         stage('Archive Results') {
             steps {
                 archiveArtifacts artifacts: 'results.json', fingerprint: true

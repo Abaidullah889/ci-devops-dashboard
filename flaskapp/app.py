@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    result_path = 'results/results.json'
+    result_path = '/app/results/results.json'  # <-- fixed path
 
     if not os.path.exists(result_path):
         return render_template('index.html', status="No data yet", passed="-", failed="-", timestamp="-")
@@ -19,6 +19,7 @@ def home():
                            passed=data.get("passed", 0),
                            failed=data.get("failed", 0),
                            timestamp=data.get("timestamp", "N/A"))
+
 
 @app.route('/results')
 def results():
