@@ -4,6 +4,14 @@ def add(a, b):
 def subtract(a, b):
     return a - b
 
+def powerof(x, e):
+    result = 1
+    for _ in range(abs(e)):
+        result *= x
+    if e < 0:
+        return 1 / result
+    return result
+
 def multiply(a, b):
     return a * b
 
