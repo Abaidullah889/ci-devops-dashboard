@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-                stage('Clean Workspace') {
+        stage('Clean Workspace') {
             steps {
                 deleteDir()
             }
@@ -13,7 +13,8 @@ pipeline {
                 checkout scm
             }
         }
-                stage('Install Dependencies') {
+
+        stage('Install Dependencies') {
             steps {
                 sh '''
                     python3 -m venv venv
@@ -23,7 +24,6 @@ pipeline {
                 '''
             }
         }
-        
 
         stage('Run Tests') {
             steps {
@@ -31,13 +31,14 @@ pipeline {
             }
         }
 
-                stage('Debug File Write') {
+        stage('Debug File Write') {
             steps {
                 sh '''
                     echo "==> Listing all results paths"
                     find / -name results.json 2>/dev/null || echo "No results.json found"
                 '''
             }
+        }
 
         stage('Archive Results') {
             steps {
