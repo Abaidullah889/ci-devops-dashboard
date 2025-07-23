@@ -2,6 +2,8 @@
 
 echo "Running Python tests..."
 
+mkdir -p /app/results
+
 # Run tests and capture both output and exit code
 output=$(python -m unittest discover -s tests 2>&1)
 exit_code=$?
