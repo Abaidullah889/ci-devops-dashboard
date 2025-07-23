@@ -20,6 +20,16 @@ def home():
                            failed=data.get("failed", 0),
                            timestamp=data.get("timestamp", "N/A"))
 
+@app.route('/results')
+def results():
+    try:
+        with open('/app/results/results.json') as f:
+            data = json.load(f)
+        return jsonify(data)
+    except Exception as e:
+        print("❌ Error reading results.json:", e)
+        return jsonify({"error": "Unable to read results.json"}), 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

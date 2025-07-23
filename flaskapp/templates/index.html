@@ -61,7 +61,8 @@
     <script>
         async function fetchResults() {
             try {
-                const response = await fetch('/results.json');
+                const response = await fetch('/results');
+
                 const data = await response.json();
 
                 const statusElem = document.getElementById('status');
